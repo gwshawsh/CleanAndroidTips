@@ -22,7 +22,7 @@ dependencies {
   provided domainDependencies.javaxAnnotation
 
   compile domainDependencies.javaxInject
-  compile domainDependencies.rxJava
+  compile presentationDependencies.rxJava2
   compile domainDependencies.arrow
   compile presentationDependencies.greendao
   compile presentationDependencies.greendaoGenerator

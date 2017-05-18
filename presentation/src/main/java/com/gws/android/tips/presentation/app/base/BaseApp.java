@@ -2,6 +2,7 @@ package com.gws.android.tips.presentation.app.base;
 
 import android.app.Activity;
 import android.app.Application;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -27,23 +28,14 @@ public class BaseApp extends Application {
     public void onCreate() {
         super.onCreate();
         initScreenSize();
+        initActivityLifecycleCallbacks();
     }
 
-    public void addActivity(Activity activity) {
-        allActivities.add(activity);
-    }
-
-    public void removeActivity(Activity a) {
-        allActivities.remove(a);
-
-    }
     public Activity getCurrentActivity() {
         return mCurrentActivity;
     }
 
-    public void setCurrentActivity(@NonNull Activity mCurrentActivity) {
-        this.mCurrentActivity = mCurrentActivity;
-    }
+
     public void initScreenSize() {
         WindowManager wm = (WindowManager) this.getSystemService(WINDOW_SERVICE);
         DisplayMetrics dm = new DisplayMetrics();
@@ -60,4 +52,50 @@ public class BaseApp extends Application {
             SCREEN_WIDTH = t;
         }
     }
+
+    private void initActivityLifecycleCallbacks(){
+        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+            @Override
+            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+                allActivities.add(activity);
+            }
+
+            @Override
+            public void onActivityStarted(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityResumed(Activity activity) {
+                setCurrentActivity(activity);
+            }
+
+            @Override
+            public void onActivityPaused(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityStopped(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+
+            }
+
+            @Override
+            public void onActivityDestroyed(Activity activity) {
+                if(activity.equals(mCurrentActivity)){
+                    setCurrentActivity(null);
+                }
+                allActivities.remove(activity);
+            }
+        });
+    }
+    private void setCurrentActivity(@NonNull Activity mCurrentActivity) {
+        this.mCurrentActivity = mCurrentActivity;
+    }
+
 }

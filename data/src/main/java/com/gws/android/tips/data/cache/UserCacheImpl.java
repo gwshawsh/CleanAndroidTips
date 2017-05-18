@@ -16,15 +16,18 @@
 package com.gws.android.tips.data.cache;
 
 import android.content.Context;
+
 import com.gws.android.tips.data.cache.serializer.Serializer;
-import com.gws.android.tips.data.entity.UserEntity;
+import com.gws.android.tips.data.entity.TipEntity;
 import com.gws.android.tips.data.exception.UserNotFoundException;
 import com.gws.android.tips.domain.executor.ThreadExecutor;
 
-import io.reactivex.Observable;
 import java.io.File;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import io.reactivex.Observable;
 
 /**
  * {@link UserCache} implementation.
@@ -63,15 +66,15 @@ public class UserCacheImpl implements UserCache {
     this.threadExecutor = executor;
   }
 
-  @Override public Observable<UserEntity> get(final int userId) {
+  @Override public Observable<TipEntity> get(final int userId) {
     return Observable.create(emitter -> {
       final File userEntityFile = UserCacheImpl.this.buildFile(userId);
       final String fileContent = UserCacheImpl.this.fileManager.readFileContent(userEntityFile);
-      final UserEntity userEntity =
-          UserCacheImpl.this.serializer.deserialize(fileContent, UserEntity.class);
+      final TipEntity tipEntity =
+          UserCacheImpl.this.serializer.deserialize(fileContent, TipEntity.class);
 
-      if (userEntity != null) {
-        emitter.onNext(userEntity);
+      if (tipEntity != null) {
+        emitter.onNext(tipEntity);
         emitter.onComplete();
       } else {
         emitter.onError(new UserNotFoundException());
@@ -79,11 +82,11 @@ public class UserCacheImpl implements UserCache {
     });
   }
 
-  @Override public void put(UserEntity userEntity) {
-    if (userEntity != null) {
-      final File userEntityFile = this.buildFile(userEntity.getUserId());
-      if (!isCached(userEntity.getUserId())) {
-        final String jsonString = this.serializer.serialize(userEntity, UserEntity.class);
+  @Override public void put(TipEntity tipEntity) {
+    if (tipEntity != null) {
+      final File userEntityFile = this.buildFile(tipEntity.getId().hashCode());
+      if (!isCached(tipEntity.getId().hashCode())) {
+        final String jsonString = this.serializer.serialize(tipEntity, TipEntity.class);
         this.executeAsynchronously(new CacheWriter(this.fileManager, userEntityFile, jsonString));
         setLastCacheUpdateTimeMillis();
       }
@@ -115,7 +118,7 @@ public class UserCacheImpl implements UserCache {
   /**
    * Build a file, used to be inserted in the disk cache.
    *
-   * @param userId The id user to build the file.
+   * @param userId The id tip to build the file.
    * @return A valid file.
    */
   private File buildFile(int userId) {

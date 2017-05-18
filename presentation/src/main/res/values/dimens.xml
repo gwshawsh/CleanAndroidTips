@@ -13,4 +13,22 @@
   <dimen name="lv_row_text_size">20sp</dimen>
   <dimen name="lv_row_icon_width">50dp</dimen>
   <dimen name="lv_row_icon_padding">5dp</dimen>
+
+
+  <dimen name="display4">112sp</dimen>
+  <dimen name="display3">56sp</dimen>
+  <dimen name="display2">45sp</dimen>
+  <dimen name="display1">34sp</dimen>
+
+  <dimen name="head_line">24sp</dimen>
+  <dimen name="title">20sp</dimen>
+  <dimen name="subtitle">16sp</dimen>
+  <dimen name="body">14sp</dimen>
+  <dimen name="menu">14sp</dimen>
+  <dimen name="button">14sp</dimen>
+  <dimen name="caption">12sp</dimen>
+
+  <dimen name="item_height">72dp</dimen>
+  <dimen name="toolbar_height">56dp</dimen>
+  <dimen name="subtitle_height">48dp</dimen>
 </resources>

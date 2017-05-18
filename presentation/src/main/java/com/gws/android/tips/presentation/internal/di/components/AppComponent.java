@@ -17,11 +17,11 @@ package com.gws.android.tips.presentation.internal.di.components;
 
 import android.content.Context;
 
+import com.anye.greendao.gen.DaoSession;
 import com.gws.android.tips.domain.executor.PostExecutionThread;
 import com.gws.android.tips.domain.executor.ThreadExecutor;
-import com.gws.android.tips.domain.repository.UserRepository;
+import com.gws.android.tips.domain.repository.TipRepository;
 import com.gws.android.tips.presentation.internal.di.modules.AppModule;
-import com.gws.android.tips.presentation.ui.activity.BaseActivity;
 
 import javax.inject.Singleton;
 
@@ -33,11 +33,13 @@ import dagger.Component;
 @Singleton // Constraints this component to one-per-application or unscoped bindings.
 @Component(modules = AppModule.class)
 public interface AppComponent {
-  void inject(BaseActivity baseActivity);
+  /*void inject(BaseActivity baseActivity);
+  void inject(BaseFragment baseFragment);*/
 
   //Exposed to sub-graphs.
   Context context();
   ThreadExecutor threadExecutor();
   PostExecutionThread postExecutionThread();
-  UserRepository userRepository();
+  TipRepository userRepository();
+  DaoSession daoSession();
 }

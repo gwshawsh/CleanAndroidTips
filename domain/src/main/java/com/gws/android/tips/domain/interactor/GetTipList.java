@@ -15,45 +15,32 @@
  */
 package com.gws.android.tips.domain.interactor;
 
-import com.gws.android.tips.domain.Result;
+import com.gws.android.tips.domain.Tip;
 import com.gws.android.tips.domain.executor.PostExecutionThread;
 import com.gws.android.tips.domain.executor.ThreadExecutor;
 import com.gws.android.tips.domain.repository.TipRepository;
-import com.fernandocejas.arrow.checks.Preconditions;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
 
-
-public class GetLoginResult extends UseCase<Result, GetLoginResult.Params> {
+/**
+ * This class is an implementation of {@link UseCase} that represents a use case for
+ */
+public class GetTipList extends UseCase<List<Tip>, Void> {
 
   private final TipRepository tipRepository;
 
   @Inject
-  GetLoginResult(TipRepository tipRepository, ThreadExecutor threadExecutor,
-                 PostExecutionThread postExecutionThread) {
+  GetTipList(TipRepository tipRepository, ThreadExecutor threadExecutor,
+             PostExecutionThread postExecutionThread) {
     super(threadExecutor, postExecutionThread);
     this.tipRepository = tipRepository;
   }
 
-  @Override Observable<Result> buildUseCaseObservable(Params params) {
-    Preconditions.checkNotNull(params);
-    return this.tipRepository.login(params.userId,params.password);
-  }
-
-  public static final class Params {
-
-    private final String userId;
-    private final String password;
-
-    private Params(String userId,String password) {
-      this.userId = userId;
-      this.password = password;
-    }
-
-    public static Params forUser(String userId,String password) {
-      return new Params(userId,password);
-    }
+  @Override Observable<List<Tip>> buildUseCaseObservable(Void unused) {
+    return this.tipRepository.tips();
   }
 }

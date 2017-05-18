@@ -24,12 +24,12 @@
     </activity>
 
     <activity
-        android:name="com.gws.android.tips.presentation.ui.activity.UserListActivity"
+        android:name="com.gws.android.tips.presentation.ui.activity.TipsListActivity"
         android:label="@string/activity_title_user_list">
     </activity>
 
     <activity
-        android:name="com.gws.android.tips.presentation.ui.activity.UserDetailsActivity"
+        android:name="com.gws.android.tips.presentation.ui.activity.TipDetailsActivity"
         android:label="@string/activity_title_user_details">
     </activity>
   </application>

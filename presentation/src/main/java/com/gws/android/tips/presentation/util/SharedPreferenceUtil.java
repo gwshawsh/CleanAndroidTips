@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
-import com.gws.android.base.app.App;
+import com.gws.android.tips.presentation.app.App;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

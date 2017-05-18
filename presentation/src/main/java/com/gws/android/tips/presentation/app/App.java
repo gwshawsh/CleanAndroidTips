@@ -15,9 +15,6 @@
  */
 package com.gws.android.tips.presentation.app;
 
-import android.app.Activity;
-import android.support.annotation.NonNull;
-
 import com.gws.android.tips.presentation.BuildConfig;
 import com.gws.android.tips.presentation.app.base.BaseApp;
 import com.gws.android.tips.presentation.internal.di.components.AppComponent;
@@ -35,7 +32,6 @@ public class App extends BaseApp {
 
   private AppComponent appComponent;
   private static App mInstance;
-  private Activity mCurrentActivity;
   @Override public void onCreate() {
     super.onCreate();
     mInstance = this;
@@ -54,14 +50,6 @@ public class App extends BaseApp {
 
   public static App getInstance() {
     return mInstance;
-  }
-
-  public Activity getCurrentActivity() {
-    return mCurrentActivity;
-  }
-
-  public void setCurrentActivity(@NonNull Activity mCurrentActivity) {
-    this.mCurrentActivity = mCurrentActivity;
   }
 
   public AppComponent getAppComponent(){

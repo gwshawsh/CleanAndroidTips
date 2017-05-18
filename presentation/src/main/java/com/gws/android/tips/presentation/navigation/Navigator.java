@@ -15,11 +15,14 @@
  */
 package com.gws.android.tips.presentation.navigation;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 
-import com.gws.android.tips.presentation.ui.activity.UserDetailsActivity;
-import com.gws.android.tips.presentation.ui.activity.UserListActivity;
+import com.gws.android.tips.presentation.app.App;
+import com.gws.android.tips.presentation.ui.activity.TipsListActivity;
+import com.gws.android.tips.presentation.ui.activity.TipDetailsActivity;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -35,28 +38,28 @@ public class Navigator {
     //empty
   }
 
-  /**
-   * Goes to the user list screen.
-   *
-   * @param context A Context needed to open the destiny activity.
-   */
-  public void navigateToUserList(Context context) {
+
+  public void toTipsList() {
+    this.to(TipsListActivity.getCallingIntent(getContext()));
+  }
+
+  public void toTipDetails(int userId) {
+    Intent intent = TipDetailsActivity.getCallingIntent(getContext(), userId);
+    this.to(intent);
+  }
+
+  public void to(@NonNull Class<? extends Activity> targetActivity) {
+    this.to(new Intent(getContext(),targetActivity));
+  }
+
+  public void to(Intent intent) {
+    Context context =getContext();
     if (context != null) {
-      Intent intentToLaunch = UserListActivity.getCallingIntent(context);
-      context.startActivity(intentToLaunch);
+      context.startActivity(intent);
     }
   }
 
-
-  /**
-   * Goes to the user details screen.
-   *
-   * @param context A Context needed to open the destiny activity.
-   */
-  public void navigateToUserDetails(Context context, int userId) {
-    if (context != null) {
-      Intent intentToLaunch = UserDetailsActivity.getCallingIntent(context, userId);
-      context.startActivity(intentToLaunch);
-    }
+  private Context getContext(){
+    return App.getInstance().getCurrentActivity();
   }
 }

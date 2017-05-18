@@ -15,45 +15,43 @@
  */
 package com.gws.android.tips.domain.interactor;
 
-import com.gws.android.tips.domain.Result;
+import com.fernandocejas.arrow.checks.Preconditions;
+import com.gws.android.tips.domain.Tip;
 import com.gws.android.tips.domain.executor.PostExecutionThread;
 import com.gws.android.tips.domain.executor.ThreadExecutor;
 import com.gws.android.tips.domain.repository.TipRepository;
-import com.fernandocejas.arrow.checks.Preconditions;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
 
 
-public class GetLoginResult extends UseCase<Result, GetLoginResult.Params> {
+public class GetTipDetails extends UseCase<Tip, GetTipDetails.Params> {
 
   private final TipRepository tipRepository;
 
   @Inject
-  GetLoginResult(TipRepository tipRepository, ThreadExecutor threadExecutor,
-                 PostExecutionThread postExecutionThread) {
+  GetTipDetails(TipRepository tipRepository, ThreadExecutor threadExecutor,
+                PostExecutionThread postExecutionThread) {
     super(threadExecutor, postExecutionThread);
     this.tipRepository = tipRepository;
   }
 
-  @Override Observable<Result> buildUseCaseObservable(Params params) {
+  @Override Observable<Tip> buildUseCaseObservable(Params params) {
     Preconditions.checkNotNull(params);
-    return this.tipRepository.login(params.userId,params.password);
+    return this.tipRepository.tip(params.userId);
   }
 
   public static final class Params {
 
-    private final String userId;
-    private final String password;
+    private final int userId;
 
-    private Params(String userId,String password) {
+    private Params(int userId) {
       this.userId = userId;
-      this.password = password;
     }
 
-    public static Params forUser(String userId,String password) {
-      return new Params(userId,password);
+    public static Params forTip(int userId) {
+      return new Params(userId);
     }
   }
 }

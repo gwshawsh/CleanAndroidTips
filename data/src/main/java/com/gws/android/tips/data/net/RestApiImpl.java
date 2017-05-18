@@ -19,8 +19,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import com.gws.android.tips.data.entity.UserEntity;
-import com.gws.android.tips.data.entity.mapper.UserEntityJsonMapper;
+import com.gws.android.tips.data.entity.TipEntity;
+import com.gws.android.tips.data.entity.mapper.TipEntityJsonMapper;
 import com.gws.android.tips.data.exception.NetworkConnectionException;
 import com.gws.android.tips.domain.Result;
 
@@ -35,29 +35,29 @@ import io.reactivex.Observable;
 public class RestApiImpl implements RestApi {
 
   private final Context context;
-  private final UserEntityJsonMapper userEntityJsonMapper;
+  private final TipEntityJsonMapper tipEntityJsonMapper;
 
   /**
    * Constructor of the class
    *
    * @param context {@link android.content.Context}.
-   * @param userEntityJsonMapper {@link UserEntityJsonMapper}.
+   * @param tipEntityJsonMapper {@link TipEntityJsonMapper}.
    */
-  public RestApiImpl(Context context, UserEntityJsonMapper userEntityJsonMapper) {
-    if (context == null || userEntityJsonMapper == null) {
+  public RestApiImpl(Context context, TipEntityJsonMapper tipEntityJsonMapper) {
+    if (context == null || tipEntityJsonMapper == null) {
       throw new IllegalArgumentException("The constructor parameters cannot be null!!!");
     }
     this.context = context.getApplicationContext();
-    this.userEntityJsonMapper = userEntityJsonMapper;
+    this.tipEntityJsonMapper = tipEntityJsonMapper;
   }
 
-  @Override public io.reactivex.Observable<List<UserEntity>> userEntityList() {
+  @Override public io.reactivex.Observable<List<TipEntity>> userEntityList() {
     return Observable.create(emitter -> {
       if (isThereInternetConnection()) {
         try {
           String responseUserEntities = getUserEntitiesFromApi();
           if (responseUserEntities != null) {
-            emitter.onNext(userEntityJsonMapper.transformUserEntityCollection(
+            emitter.onNext(tipEntityJsonMapper.transformUserEntityCollection(
                 responseUserEntities));
             emitter.onComplete();
           } else {
@@ -72,13 +72,13 @@ public class RestApiImpl implements RestApi {
     });
   }
 
-  @Override public io.reactivex.Observable<UserEntity> userEntityById(final int userId) {
+  @Override public io.reactivex.Observable<TipEntity> userEntityById(final int userId) {
     return Observable.create(emitter -> {
       if (isThereInternetConnection()) {
         try {
           String responseUserDetails = getUserDetailsFromApi(userId);
           if (responseUserDetails != null) {
-            emitter.onNext(userEntityJsonMapper.transformUserEntity(responseUserDetails));
+            emitter.onNext(tipEntityJsonMapper.transformUserEntity(responseUserDetails));
             emitter.onComplete();
           } else {
             emitter.onError(new NetworkConnectionException());

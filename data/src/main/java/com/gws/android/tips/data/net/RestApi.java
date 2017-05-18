@@ -15,7 +15,7 @@
  */
 package com.gws.android.tips.data.net;
 
-import com.gws.android.tips.data.entity.UserEntity;
+import com.gws.android.tips.data.entity.TipEntity;
 import com.gws.android.tips.domain.Result;
 
 import java.util.List;
@@ -29,22 +29,22 @@ public interface RestApi {
   String API_BASE_URL =
       "https://raw.githubusercontent.com/android10/Sample-Data/master/Android-CleanArchitecture/";
 
-  /** Api url for getting all users */
-  String API_URL_GET_USER_LIST = API_BASE_URL + "users.json";
-  /** Api url for getting a user profile: Remember to concatenate id + 'json' */
+  /** Api url for getting all tips */
+  String API_URL_GET_USER_LIST = API_BASE_URL + "tips.json";
+  /** Api url for getting a tip profile: Remember to concatenate id + 'json' */
   String API_URL_GET_USER_DETAILS = API_BASE_URL + "user_";
 
   /**
-   * Retrieves an {@link Observable} which will emit a List of {@link UserEntity}.
+   * Retrieves an {@link Observable} which will emit a List of {@link TipEntity}.
    */
-  Observable<List<UserEntity>> userEntityList();
+  Observable<List<TipEntity>> userEntityList();
 
   /**
-   * Retrieves an {@link Observable} which will emit a {@link UserEntity}.
+   * Retrieves an {@link Observable} which will emit a {@link TipEntity}.
    *
-   * @param userId The user id used to get user data.
+   * @param userId The tip id used to get tip data.
    */
-  Observable<UserEntity> userEntityById(final int userId);
+  Observable<TipEntity> userEntityById(final int userId);
 
   Observable<Result> login(final String userId,final String password) throws ClassNotFoundException;
 }

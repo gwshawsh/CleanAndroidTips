@@ -12,8 +12,7 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.gws.android.base.app.App;
-import com.gws.android.base.constants.Constants;
+import com.gws.android.tips.presentation.app.App;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -65,7 +64,7 @@ public class SystemUtil {
     public static Uri saveBitmapToFile(Context context, String url, Bitmap bitmap
             , View container, boolean isShare) {
         String fileName = url.substring(url.lastIndexOf("/"), url.lastIndexOf(".")) + ".png";
-        File fileDir = new File(Constants.PATH_DATA);
+        File fileDir =null; //new File(Constants.PATH_DATA);
         if (!fileDir.exists()){
             fileDir.mkdir();
         }

@@ -69,8 +69,8 @@ dependencies {
   compile presentationDependencies.dagger
   compile presentationDependencies.butterKnife
   compile presentationDependencies.recyclerView
-  compile presentationDependencies.rxJava
-  compile presentationDependencies.rxAndroid
+  compile presentationDependencies.rxJava2
+  compile presentationDependencies.rxAndroid2
   provided presentationDependencies.javaxAnnotation
   compile presentationDependencies.appcompat
   compile presentationDependencies.design
@@ -78,8 +78,10 @@ dependencies {
 
   compile presentationDependencies.constraintLayout
   compile presentationDependencies.eventbus
-
   compile presentationDependencies.glide
+  compile presentationDependencies.BaseRecyclerViewAdapterHelper
+
+
 
 
   androidTestCompile presentationTestDependencies.mockito

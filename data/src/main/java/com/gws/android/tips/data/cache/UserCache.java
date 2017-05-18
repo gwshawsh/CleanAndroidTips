@@ -15,26 +15,27 @@
  */
 package com.gws.android.tips.data.cache;
 
-import com.gws.android.tips.data.entity.UserEntity;
+import com.gws.android.tips.data.entity.TipEntity;
+
 import io.reactivex.Observable;
 
 /**
- * An interface representing a user Cache.
+ * An interface representing a tip Cache.
  */
 public interface UserCache {
   /**
-   * Gets an {@link Observable} which will emit a {@link UserEntity}.
+   * Gets an {@link Observable} which will emit a {@link TipEntity}.
    *
-   * @param userId The user id to retrieve data.
+   * @param userId The tip id to retrieve data.
    */
-  Observable<UserEntity> get(final int userId);
+  Observable<TipEntity> get(final int userId);
 
   /**
    * Puts and element into the cache.
    *
-   * @param userEntity Element to insert in the cache.
+   * @param tipEntity Element to insert in the cache.
    */
-  void put(UserEntity userEntity);
+  void put(TipEntity tipEntity);
 
   /**
    * Checks if an element (User) exists in the cache.

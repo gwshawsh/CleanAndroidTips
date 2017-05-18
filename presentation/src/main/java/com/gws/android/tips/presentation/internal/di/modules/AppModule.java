@@ -16,16 +16,19 @@
 package com.gws.android.tips.presentation.internal.di.modules;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 
+import com.anye.greendao.gen.DaoMaster;
+import com.anye.greendao.gen.DaoSession;
 import com.gws.android.tips.data.cache.UserCache;
 import com.gws.android.tips.data.cache.UserCacheImpl;
 import com.gws.android.tips.data.executor.JobExecutor;
-import com.gws.android.tips.data.repository.UserDataRepository;
+import com.gws.android.tips.data.repository.TipDataRepository;
 import com.gws.android.tips.domain.executor.PostExecutionThread;
 import com.gws.android.tips.domain.executor.ThreadExecutor;
-import com.gws.android.tips.domain.repository.UserRepository;
-import com.gws.android.tips.presentation.app.App;
+import com.gws.android.tips.domain.repository.TipRepository;
 import com.gws.android.tips.presentation.UIThread;
+import com.gws.android.tips.presentation.app.App;
 
 import javax.inject.Singleton;
 
@@ -61,7 +64,16 @@ public class AppModule {
     return userCache;
   }
 
-  @Provides @Singleton UserRepository provideUserRepository(UserDataRepository userDataRepository) {
+
+
+  @Provides @Singleton
+  TipRepository provideUserRepository(TipDataRepository userDataRepository) {
     return userDataRepository;
+  }
+
+  @Provides @Singleton
+  DaoSession provideDaoSession() {
+    SQLiteDatabase db = new DaoMaster.DevOpenHelper(application, "notes-db", null).getWritableDatabase();
+    return new DaoMaster(db).newSession();
   }
 }
